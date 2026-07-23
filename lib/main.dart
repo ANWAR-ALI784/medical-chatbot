@@ -1,11 +1,15 @@
-import 'package:animationpractice/pages/splash_screen.dart'; // Import Splash Screen
 import 'package:animationpractice/pages/splash_screen.dart';
+import 'package:animationpractice/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await dotenv.load(fileName: ".env");
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyAppGlobal());
 }
 
@@ -17,7 +21,7 @@ class MyAppGlobal extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "HealthMate",
-      themeMode: ThemeMode.system, // Follow system theme
+      themeMode: ThemeMode.system,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.teal,
@@ -32,7 +36,6 @@ class MyAppGlobal extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      // App now always starts with the Splash Screen
       home: const SplashScreen(),
     );
   }
